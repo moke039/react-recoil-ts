@@ -4,8 +4,8 @@ import { todoListFilterState } from "../state/recoilState";
 function TodoListFilters() {
   const [filter, setFilter] = useRecoilState(todoListFilterState);
 
-  const updateFilter = ({ target: { value } }) => {
-    setFilter(value);
+  const updateFilter: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setFilter(e.target.value);
   };
 
   return (

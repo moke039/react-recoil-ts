@@ -18,8 +18,8 @@ function TodoItemCreator() {
     setInputValue("");
   };
 
-  const onChange = ({ target: { value } }) => {
-    setInputValue(value);
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (

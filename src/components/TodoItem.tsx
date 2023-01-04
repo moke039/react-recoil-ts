@@ -1,15 +1,18 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { todoListState } from "../state/recoilState";
+import { TodoItemType, todoListState } from "../state/recoilState";
 
-function TodoItem({ item }) {
+type Props = {
+  item: TodoItemType;
+};
+function TodoItem({ item }: Props) {
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const index = todoList.findIndex((listItem) => listItem === item);
 
-  const editItemText = ({ target: { value } }) => {
+  const editItemText: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const newList = replaceItemAtIndex(todoList, index, {
       ...item,
-      text: value,
+      text: e.target.value,
     });
 
     setTodoList(newList);
@@ -43,11 +46,15 @@ function TodoItem({ item }) {
   );
 }
 
-function replaceItemAtIndex(arr, index, newValue) {
+function replaceItemAtIndex(
+  arr: TodoItemType[],
+  index: number,
+  newValue: TodoItemType
+) {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 }
 
-function removeItemAtIndex(arr, index) {
+function removeItemAtIndex(arr: TodoItemType[], index: number) {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }
 
