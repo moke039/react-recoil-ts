@@ -1,8 +1,9 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import TodoItem from "./TodoItem";
-import TodoListFilters from "./TodoListFilters";
 import TodoItemCreator from "./TodoItemCreator";
+import TodoListFilters from "./TodoListFilters";
+import TodoListStats from "./TodoListStats";
 import { filteredTodoListState } from "../state/recoilState";
 
 function TodoList() {
@@ -10,7 +11,7 @@ function TodoList() {
 
   return (
     <>
-      {/* <TodoListStats /> */}
+      <TodoListStats />
       <TodoListFilters />
       <TodoItemCreator />
 
