@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { RecoilRoot, RecoilState, useRecoilValue } from "recoil";
 import { fireEvent, render, screen } from "@testing-library/react";
 import TodoItemCreator from "../TodoItemCreator";
-import { todoListState } from "../../state/recoilState";
-
-export const RecoilObserver = ({ node, onChange }) => {
+import { TodoItemType, todoListState } from "../../state/recoilState";
+type Props = {
+  node: RecoilState<TodoItemType[]>;
+  onChange: jest.Mock<any, any>;
+};
+const RecoilObserver = ({ node, onChange }: Props) => {
   const value = useRecoilValue(node);
   useEffect(() => onChange(value), [onChange, value]);
   return null;
@@ -39,7 +42,6 @@ describe("入力確認", () => {
       { id: 0, isComplete: false, text: "Recoil" },
     ]); // New value on change.
   });
-  //  const onChange2 = jest.fn();
   it("textbox & buttonへの複数入力", () => {
     render(
       <RecoilRoot>
