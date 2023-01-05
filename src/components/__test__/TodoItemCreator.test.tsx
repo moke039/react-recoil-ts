@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { fireEvent, render, screen } from "@testing-library/react";
-import TodoItemCreator from "../components/TodoItemCreator";
-import { todoListState } from "../state/recoilState";
+import TodoItemCreator from "../TodoItemCreator";
+import { todoListState } from "../../state/recoilState";
 
 export const RecoilObserver = ({ node, onChange }) => {
   const value = useRecoilValue(node);

@@ -2,6 +2,9 @@
 
 https://recoiljs.org/docs/basic-tutorial/intro  
 の Todo List アプリを TS 化して Jest なテストを追加してみる。
+https://recoiljs.org/docs/guides/testing/
+でテストを追加できた。カバレッジが取れていないことに気づく。
+フォルダの位置関係によってカバレッジが取れなくなる様子だったので修正。
 
 # Getting Started with Create React App
 
