@@ -6,7 +6,40 @@ https://recoiljs.org/docs/guides/testing/
 で recoil な jest テストを追加できた。 v0.0.5  
 カバレッジが取れていないことに気づいて修正 v0.0.6。  
 フォルダの位置関係によってカバレッジが取れなくなる様子だったので修正。  
- src/\_\_test\_\_ でもテストは走るがカバレッジが取れないようだった。
+(src/\_\_test\_\_ でもテストは走るがカバレッジが取れないようだった。)
+
+TodoItemCreator のみ単体での評価が可能。  
+TodoItem なら表示の単体テストが可能だが、index がうまく定まらず編集の評価はできない。TodoList で評価した。  
+TodoListFilters も同様に TodoList での評価を実施。RecoilObserver の node を filteredTodoListState に変えている。
+
+> npm test -- --clearCache
+
+してみたけど、それほど細かくカバレッジは取れない様子だった。
+
+```
+ PASS  src/components/__test__/TodoListStats.test.tsx
+ PASS  src/components/__test__/TodoListStats.test.tsx
+ PASS  src/components/__test__/TodoItem.test.tsx
+ PASS  src/components/__test__/TodoListFilters.test.tsx
+ PASS  src/App.test.tsx
+ PASS  src/components/__test__/TodoItemCreator.test.tsx
+-----------------|---------|----------|---------|---------|-------------------
+File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------|---------|----------|---------|---------|-------------------
+All files        |     100 |      100 |     100 |     100 |
+ components      |     100 |      100 |     100 |     100 |
+  TodoItem.tsx   |     100 |      100 |     100 |     100 |
+  TodoList.tsx   |     100 |      100 |     100 |     100 |
+ state           |     100 |      100 |     100 |     100 |
+  recoilState.ts |     100 |      100 |     100 |     100 |
+-----------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 5 passed, 5 total
+Tests:       11 passed, 11 total
+Snapshots:   0 total
+Time:        7.059 s, estimated 8 s
+Ran all test suites.
+```
 
 # Getting Started with Create React App
 
