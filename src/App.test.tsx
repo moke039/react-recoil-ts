@@ -1,7 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import App from "./App";
 import userEvent from "@testing-library/user-event";
+import renderer from "react-test-renderer";
+import App from "./App";
 
 describe("表示確認", () => {
   it("renders title", () => {
@@ -26,4 +27,9 @@ describe("combobox確認", () => {
     userEvent.selectOptions(filterElement, "Show Completed");
     expect(filterElement).toHaveValue("Show Completed");
   });
+});
+it("snapshot", () => {
+  const component = renderer.create(<App />);
+  let tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 });

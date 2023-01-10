@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snap shot 1`] = `
+<div
+  className="App"
+>
+  <h1>
+    Recoil Example
+  </h1>
+  <h2>
+    Learn recoill with simple todo list app
+  </h2>
+  <ul>
+    <li>
+      Total items: 
+      0
+    </li>
+    <li>
+      Items completed: 
+      0
+    </li>
+    <li>
+      Items not completed: 
+      0
+    </li>
+    <li>
+      Percent completed: 
+      0
+    </li>
+  </ul>
+  Filter:
+  <select
+    onChange={[Function]}
+    value="Show All"
+  >
+    <option
+      value="Show All"
+    >
+      All
+    </option>
+    <option
+      value="Show Completed"
+    >
+      Completed
+    </option>
+    <option
+      value="Show Uncompleted"
+    >
+      Uncompleted
+    </option>
+  </select>
+  <div>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <button
+      onClick={[Function]}
+    >
+      Add
+    </button>
+  </div>
+</div>
+`;
