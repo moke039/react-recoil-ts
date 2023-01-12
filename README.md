@@ -12,12 +12,27 @@ TodoItemCreator のみ単体での評価が可能。
 TodoItem なら表示の単体テストが可能だが、index がうまく定まらず編集の評価はできない。TodoList で評価した。  
 TodoListFilters も同様に TodoList での評価を実施。RecoilObserver の node を filteredTodoListState に変えている。
 
-> npm test -- --clearCache
-
-してみたけど、それほど細かくカバレッジは取れない様子だった。
+App.test.tsx で snapshot も試してみている。
 
 ```
- PASS  src/components/__test__/TodoListStats.test.tsx
+npm run test -- --clearCache
+```
+
+してみたけど、TodoList に丸められて、l つ 1 つのカバレッジは取れない様子だった。
+
+```
+npm run test -- --coverage
+```
+
+は
+
+```
+npm run cov
+```
+
+で実行可能。
+
+```
  PASS  src/components/__test__/TodoListStats.test.tsx
  PASS  src/components/__test__/TodoItem.test.tsx
  PASS  src/components/__test__/TodoListFilters.test.tsx

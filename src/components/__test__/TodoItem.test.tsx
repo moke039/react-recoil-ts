@@ -20,8 +20,8 @@ const testItems: TodoItemType[] = [
   { id: 3, isComplete: false, text: "Recoil3" },
 ];
 
-describe("表示確認", () => {
-  it("renders textbox & button", () => {
+describe("todoItem[] の表示確認", () => {
+  it("renders textbox & checkbox & button", () => {
     render(
       <>
         <RecoilRoot>
@@ -33,6 +33,7 @@ describe("表示確認", () => {
     );
     //screen.debug();
     //screen.getByRole("");
+    //同等の要素が複数ある場合は getAllBy... してリスト要素を指定して確認する。
     expect(screen.getByDisplayValue("Recoil1")).toBeInTheDocument();
     expect(screen.getAllByRole("checkbox")[0]).not.toBeChecked();
     expect(screen.getAllByRole("button")[0]).toBeEnabled();
@@ -44,19 +45,19 @@ describe("表示確認", () => {
     expect(screen.getAllByRole("button")[2]).toBeEnabled();
   });
 });
-describe("入力確認 TodoLixt が必要。", () => {
-  const onChange = jest.fn();
-  it("checkbox & buttonへの入力", () => {
+describe("入力確認 Recoil や TodoItemCreatorに依存するので TodoListとして評価。", () => {
+  const onChangeSpy = jest.fn();
+  it("完/未完checkbox & 削除buttonへの入力", () => {
     render(
       <>
         <RecoilRoot>
-          <RecoilObserver node={todoListState} onChange={onChange} />
+          <RecoilObserver node={todoListState} onChange={onChangeSpy} />
           <TodoList />
         </RecoilRoot>
       </>
     );
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenLastCalledWith([]);
+    expect(onChangeSpy).toHaveBeenCalledTimes(1);
+    expect(onChangeSpy).toHaveBeenLastCalledWith([]);
     fireEvent.change(screen.getAllByRole("textbox")[0], {
       target: { value: "Recoil1" },
     });
@@ -69,8 +70,8 @@ describe("入力確認 TodoLixt が必要。", () => {
       target: { value: "Recoil3" },
     });
     fireEvent.click(screen.getAllByRole("button")[0]);
-    expect(onChange).toHaveBeenCalledTimes(4);
-    expect(onChange).toHaveBeenLastCalledWith([
+    expect(onChangeSpy).toHaveBeenCalledTimes(4);
+    expect(onChangeSpy).toHaveBeenLastCalledWith([
       { id: 0, isComplete: false, text: "Recoil1" },
       { id: 1, isComplete: false, text: "Recoil2" },
       { id: 2, isComplete: false, text: "Recoil3" },
@@ -79,19 +80,19 @@ describe("入力確認 TodoLixt が必要。", () => {
     fireEvent.change(screen.getAllByRole("textbox")[3], {
       target: { value: "coil4" },
     });
-    expect(onChange).toHaveBeenLastCalledWith([
+    expect(onChangeSpy).toHaveBeenLastCalledWith([
       { id: 0, isComplete: false, text: "Recoil1" },
       { id: 1, isComplete: false, text: "Recoil2" },
       { id: 2, isComplete: false, text: "coil4" },
     ]);
     fireEvent.click(screen.getAllByRole("checkbox")[2]);
-    expect(onChange).toHaveBeenLastCalledWith([
+    expect(onChangeSpy).toHaveBeenLastCalledWith([
       { id: 0, isComplete: false, text: "Recoil1" },
       { id: 1, isComplete: false, text: "Recoil2" },
       { id: 2, isComplete: true, text: "coil4" },
     ]);
     fireEvent.click(screen.getAllByRole("button")[3]);
-    expect(onChange).toHaveBeenLastCalledWith([
+    expect(onChangeSpy).toHaveBeenLastCalledWith([
       { id: 0, isComplete: false, text: "Recoil1" },
       { id: 1, isComplete: false, text: "Recoil2" },
     ]);

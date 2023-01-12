@@ -7,37 +7,42 @@ type Props = {
   node: RecoilValueReadOnly<TodoItemType[]>;
   onChange: jest.Mock<any, any>;
 };
-const RecoilObserver = ({ node, onChange }: Props) => {
+const RecoilSniffer = ({ node, onChange }: Props) => {
   const value = useRecoilValue(node);
   useEffect(() => onChange(value), [onChange, value]);
   return null;
 };
 
-const onChange = jest.fn();
-describe("入力確認 TodoLixt が必要。", () => {
-  it("stats 表示確認", () => {
+const onChangeSpy = jest.fn();
+describe("表示確認 Recoil や TodoItemに依存するので TodoListとして評価。", () => {
+  it("stats 表示確認 完/未完数・割合の変化を確認する", () => {
     render(
       <>
         <RecoilRoot>
-          <RecoilObserver node={filteredTodoListState} onChange={onChange} />
+          <RecoilSniffer node={filteredTodoListState} onChange={onChangeSpy} />
           <TodoList />
         </RecoilRoot>
       </>
     );
-    expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenLastCalledWith([]);
+    expect(onChangeSpy).toHaveBeenCalledTimes(1);
+    expect(onChangeSpy).toHaveBeenLastCalledWith([]);
     fireEvent.change(screen.getAllByRole("textbox")[0], {
       target: { value: "Recoil1" },
     });
     fireEvent.click(screen.getAllByRole("button")[0]);
+    expect(screen.getByText("Total items: 1")).toBeInTheDocument();
+
     fireEvent.change(screen.getAllByRole("textbox")[0], {
       target: { value: "Recoil2" },
     });
     fireEvent.click(screen.getAllByRole("button")[0]);
+    expect(screen.getByText("Total items: 2")).toBeInTheDocument();
+
     fireEvent.change(screen.getAllByRole("textbox")[0], {
       target: { value: "Recoil3" },
     });
     fireEvent.click(screen.getAllByRole("button")[0]);
+    expect(screen.getByText("Total items: 3")).toBeInTheDocument();
 
     fireEvent.click(screen.getAllByRole("checkbox")[0]);
     expect(screen.getByText("Total items: 3")).toBeInTheDocument();
