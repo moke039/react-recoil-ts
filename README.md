@@ -12,7 +12,8 @@ TodoItemCreator のみ単体での評価が可能。
 TodoItem なら表示の単体テストが可能だが、index がうまく定まらず編集の評価はできない。TodoList で評価した。  
 TodoListFilters も同様に TodoList での評価を実施。RecoilObserver の node を filteredTodoListState に変えている。
 
-App.test.tsx で snapshot も試してみている。
+App.test.tsx で snapshot も試してみている。  
+テストケースのコメントを変更すると snapshot の exports も変化する。
 
 ```
 npm run test -- --clearCache
@@ -20,11 +21,15 @@ npm run test -- --clearCache
 
 してみたけど、TodoList に丸められて、l つ 1 つのカバレッジは取れない様子だった。
 
+Create React App で test coverage が出力されない時の対処
+
+- Qiita https://qiita.com/nbstsh/items/024391eb1c8ad068d2f6
+
 ```
-npm run test -- --coverage
+npm run test -- --coverage --watchAll=false
 ```
 
-は
+でないと、カバレッジ計測結果を出力中に watch が走ってしまうらしい。
 
 ```
 npm run cov
@@ -32,29 +37,12 @@ npm run cov
 
 で実行可能。
 
-```
- PASS  src/components/__test__/TodoListStats.test.tsx
- PASS  src/components/__test__/TodoItem.test.tsx
- PASS  src/components/__test__/TodoListFilters.test.tsx
- PASS  src/App.test.tsx
- PASS  src/components/__test__/TodoItemCreator.test.tsx
------------------|---------|----------|---------|---------|-------------------
-File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
------------------|---------|----------|---------|---------|-------------------
-All files        |     100 |      100 |     100 |     100 |
- components      |     100 |      100 |     100 |     100 |
-  TodoItem.tsx   |     100 |      100 |     100 |     100 |
-  TodoList.tsx   |     100 |      100 |     100 |     100 |
- state           |     100 |      100 |     100 |     100 |
-  recoilState.ts |     100 |      100 |     100 |     100 |
------------------|---------|----------|---------|---------|-------------------
+package.json の devDependencies にテスト関連のモジュールを分けてみた。
+package-lock.json で関連モジュールに
 
-Test Suites: 5 passed, 5 total
-Tests:       11 passed, 11 total
-Snapshots:   0 total
-Time:        7.059 s, estimated 8 s
-Ran all test suites.
-```
+> "dev": true,
+
+がつくようになる。
 
 # Getting Started with Create React App
 
